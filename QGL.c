@@ -82,7 +82,7 @@ u8* Compress(u8 *in, u32 in_len, u32 *out_len){
 }
 
 
-void decompress_qgl(const char* file){
+void decompress_qgl(const char* file, const char* fileout){
 	if(be32(qgl)!=QRCC)
 		fail("invalid file! not a qrc");
 	u32 size_unpacked = be32(qgl+0x04);
@@ -97,12 +97,12 @@ void decompress_qgl(const char* file){
 
 	u8 qgl_dec[size_unpacked];
 	Decompress(qgl+0x08, size_file-0x08, qgl_dec, size_unpacked);
-	memcpy_to_file("decompressed.qrc", qgl_dec, size_unpacked);
-	printf("File Decompressed!! file decompressed.qrc created!\n");
+	memcpy_to_file(fileout, qgl_dec, size_unpacked);
+	printf("File Decompressed!! file %s created!\n",fileout);
 
 }
 
-void compress_qgl(const char* file){
+void compress_qgl(const char* file, const char* fileout){
 	if(be32(qgl)!=QRCF)
 		fail("invalid file! not a qrc");
 	u32 size_packed = 0;
@@ -115,25 +115,25 @@ void compress_qgl(const char* file){
 	printf("File size:            %d Bytes\n",size_file);
 
 	u8 *qgl_comp = Compress(qgl, size_file, &size_packed);
-	printf("Compressed file size: %x Bytes\n",size_packed);
-	memcpy_to_file("compressed.qrc", qgl_comp, size_packed);
-	printf("File Compressed!! file compressed.qrc created!\n");
+	printf("Compressed file size: %d Bytes\n",size_packed);
+	memcpy_to_file(fileout, qgl_comp, size_packed);
+	printf("File Compressed!! file %s created!\n",fileout);
 }
 
 int main(int argc, char *argv[]){
 
-	if (argc == 3) {
+	if (argc == 4) {
 		qgl = mmap_file(argv[2]);
 		if (strcmp(argv[1], "-x") == 0)
-			decompress_qgl(argv[2]);
+			decompress_qgl(argv[2],argv[3]);
 		else if (strcmp(argv[1], "-c") == 0)
-			compress_qgl(argv[2]);
+			compress_qgl(argv[2],argv[3]);
 		else
 			fail("invalid option: %s", argv[1]);
 
 
 	} else {
-		fail("usage: %s [OPTION: -x -c] file.qrc\n"
+		fail("usage: %s [OPTION: -x -c] file.qrc out_file.qrc\n"
 		     "\t-x | decompress qrc\n"
 		     "\t-c | compress qrc"
 			,argv[0]);
