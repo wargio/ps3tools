@@ -100,11 +100,6 @@ void decompress_qgl(const char* file){
 	memcpy_to_file("decompressed.qrc", qgl_dec, size_unpacked);
 	printf("File Decompressed!! file decompressed.qrc created!\n");
 
-fp = fopen("decompressed.qrc","rb");
-	fseek (fp, 0, SEEK_END);
-	u32 size_file2 = ftell (fp);
-	fclose(fp);
-printf("File size:              %d Bytes\n",size_file2);
 }
 
 void compress_qgl(const char* file){
