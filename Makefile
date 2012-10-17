@@ -2,6 +2,7 @@ TOOLS	 =	norunpack readself unpkg pkg scekrit spp
 TOOLS	+=	unself2 cospkg eidsplitr puppack sceverify unself 
 TOOLS	+=	cosunpack makeself pupunpack undat unspp cosunpkg 
 TOOLS	+=	readself2 self_rebuilder ungpkg sfo hip2his syscon
+TOOLS	+=	QGL
 CPPTOOLS =	sfo_sfx_converter
 BUILT   :=	$(TOOLS) $(CPPTOOLS)
 

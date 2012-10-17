@@ -1,4 +1,4 @@
-TOOLS=/Users/wargio/.ps3tools
+TOOLS=/home/giovanni/ps3tools/BUILD
 echo "Wargio's dev_flash & dev_flash3 extractor v0.3 (for Linux)"
 echo "Just for 3.56+ PUPs"
 echo ""
