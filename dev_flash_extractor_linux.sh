@@ -1,11 +1,15 @@
-TOOLS=/home/giovanni/ps3tools/BUILD
-echo "Wargio's dev_flash & dev_flash3 extractor v0.3 (for Linux)"
-echo "Just for 3.56+ PUPs"
+TOOLS="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+echo "Wargio's dev_flash & dev_flash3 extractor v0.4 (for Linux)"
 echo ""
 
-if [ $# -eq 1 ]; then
+if [ $# -eq 2 ]; then
+	WORKPUP=$(readlink -f "$1")
+	WORKDIR=$(readlink -f "$2")
+
+	mkdir "$2" 2>/dev/null || sleep 0
+	cd "$2"
 	echo "Extracting PUP.."
-	$TOOLS/pupunpack $1 TMP >> logs.txt
+	$TOOLS/pupunpack "$WORKPUP" TMP >> logs.txt
 	rm -rf logs.txt
 	cd TMP
 	mkdir update_files
@@ -82,26 +86,32 @@ if [ $# -eq 1 ]; then
 	echo "Done.."
 	echo "dev_flash extracted.."
 	echo ""
-	echo "Working now on dev_flash3.."
-	echo "Renaming file.."
-	mv dev_flash3* dev_flash3.tar
-	echo "Extracting SCE TARs.."
-	$TOOLS/unpkg dev_flash3.tar dev_flash3_ex
-	echo "Renaming file again.."
-	mv dev_flash3_ex/content dev_flash3_ex/content.tar
-	echo "Extracting TARs.."
-	tar -xf ./dev_flash3_ex/content.tar
-	echo "Deleting dev_flash3 working dirs.."
-	rm -rf dev_flash3_tmp
-	echo "Copying dev_flash and dev_flash3"
-	cp -rf dev_flash ../../dev_flash
-	cp -rf dev_flash3 ../../dev_flash3
+	HAS_DEV_FLASH3=$(ls dev_flash3* 2>/dev/null | head -n 1 || sleep 0)
+	if [ ! -z "$HAS_DEV_FLASH3" ]; then
+		echo "Working now on dev_flash3.."
+		echo "Renaming file.."
+		mv dev_flash3* dev_flash3.tar
+		echo "Extracting SCE TARs.."
+		$TOOLS/unpkg dev_flash3.tar dev_flash3_ex
+		echo "Renaming file again.."
+		mv dev_flash3_ex/content dev_flash3_ex/content.tar
+		echo "Extracting TARs.."
+		tar -xf ./dev_flash3_ex/content.tar
+		echo "Deleting dev_flash3 working dirs.."
+		rm -rf dev_flash3_tmp
+		echo "Copying dev_flash and dev_flash3"
+		cp -rf dev_flash ../../dev_flash
+		cp -rf dev_flash3 ../../dev_flash3
+	else
+		echo "Copying dev_flash"
+		cp -rf dev_flash ../../dev_flash
+	fi
 	cd ../..
 	rm -rf TMP
 	echo "Done..."
 else
 
 	echo "usage: "
-	echo "	./unpack_dev_flash.sh <PUP>"
+	echo "	./unpack_dev_flash.sh <PUP> <FOLDER>"
 fi
 
