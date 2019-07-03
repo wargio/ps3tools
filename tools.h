@@ -5,8 +5,8 @@
 
 #ifndef TOOLS_H__
 #define TOOLS_H__ 1
-#include <stdint.h>
 
+#include <stdint.h>
 #include "types.h"
 
 enum sce_key {
@@ -80,4 +80,5 @@ void bn_mon_inv(u8 *d, u8 *a, u8 *N, u32 n);
 #define		round_up(x,n)	(-(-(x) & -(n)))
 
 #define		array_size(x)	(sizeof(x) / sizeof(*(x)))
+
 #endif
