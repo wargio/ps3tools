@@ -788,9 +788,10 @@ static void show_ctrl(void)
 					        be32(self + ctrl_offset + i + 0x28),
 					        be32(self + ctrl_offset + i + 0x2c)
 					      );
-          printf("\n");
+					printf("\n");
 					break;
 				}
+				goto unknown_type;
 			case 2:
 				if (length == 0x40)
 				{
@@ -823,9 +824,7 @@ static void show_ctrl(void)
 					        be32(self + ctrl_offset + i + 0x3c)
 					      );
 					break;
-				}
-				if (length == 0x30)
-				{
+				} else if (length == 0x30) {
 					printf("  control type:    %04x = %04x\n",
 					        (u16)(ctrl_offset + i),
 					        (u32)type
@@ -847,6 +846,7 @@ static void show_ctrl(void)
 //					printf("  unknown:         %04x = %08x_%08x\n", (u16)(ctrl_offset + i + 0x2c), be32(self + ctrl_offset + i + 0x2c), be32(self + ctrl_offset + i + 0x30));
 					break;
 				}
+				goto unknown_type;
 			case 3:
 				if (length == 0x90)
 				{
@@ -861,7 +861,7 @@ static void show_ctrl(void)
 					        be32(self + ctrl_offset + i + 0x10)
 					      );
 					printf("    unk0 :         %04x = %08x\n",
-                  (u16)(ctrl_offset + i + 0x14),
+						  (u16)(ctrl_offset + i + 0x14),
 				          be32(self + ctrl_offset + i + 0x14)
 				        );
 					printf("    unk1 :         %04x = %08x\n",
@@ -897,7 +897,9 @@ static void show_ctrl(void)
 					      );
 					break;
 				}
+				goto unknown_type;
 			default:
+unknown_type:
 				printf("  unknown:\n");
 				for(j = 0; j < length; j++)
 				{

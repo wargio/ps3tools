@@ -41,14 +41,15 @@ static void unpack_file(u32 i)
 static void unpack_pkg(void)
 {
 	u32 n_files;
-	u64 size;
+	//u64 size;
 	u32 i;
 
 	n_files = be32(pkg + 4);
-	size = be64(pkg + 8);
+	//size = be64(pkg + 8);
 
-	for (i = 0; i < n_files; i++)
+	for (i = 0; i < n_files; i++) {
 		unpack_file(i);
+	}
 }
 
 int main(int argc, char *argv[])

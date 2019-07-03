@@ -74,9 +74,9 @@ static void decrypt_pkg(void)
 {
 	int j;
 
-	u16 flags;
+	//u16 flags;
 	u16 type;
-	u32 hdr_len;
+	//u32 hdr_len;
 
 	u32 PatchID1;
 	u32 PatchID2;
@@ -84,9 +84,9 @@ static void decrypt_pkg(void)
 
 	struct keylist *k;
 
-	flags	= be16(pkg + 0x08);
+	//flags	= be16(pkg + 0x08);
 	type	 = be16(pkg + 0x0a);
-	hdr_len  = be64(pkg + 0x10);
+	//hdr_len  = be64(pkg + 0x10);
 	dec_size = be64(pkg + 0x18);
 	SoftID	 = be16(pkg + 0x28e);
 	PatchID1 = be32(pkg + 0x290);

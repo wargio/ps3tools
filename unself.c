@@ -340,17 +340,21 @@ static void self_decrypt(void)
 	struct keylist *klist;
 
 	klist = self_load_keys();
-	if (klist == NULL)
+	if (klist == NULL) {
 		fail("no key found");
+	}
 
-    if (sce_remove_npdrm(self, klist) < 0)
+    if (sce_remove_npdrm(self, klist) < 0) {
         fail("self_remove_npdrm failed");
+    }
 
-	if (sce_decrypt_header(self, klist) < 0)
+	if (sce_decrypt_header(self, klist) < 0) {
 		fail("self_decrypt_header failed");
+	}
 
-	if (sce_decrypt_data(self) < 0)
+	if (sce_decrypt_data(self) < 0) {
 		fail("self_decrypt_data failed");
+	}
 }
 
 int main(int argc, char *argv[])

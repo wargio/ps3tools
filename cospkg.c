@@ -33,7 +33,7 @@ static void get_files(const char *d)
 	DIR *dir;
 	struct dirent *de;
 	struct stat st;
-	char path[256];
+	char path[1024];
 	u32 i;
 	u64 offset;
 
@@ -56,7 +56,7 @@ static void get_files(const char *d)
 		if (strlen(de->d_name) > 0x20)
 			fail("name too long: %s", de->d_name);
 
-		snprintf(path, sizeof path, "%s/%s", d, de->d_name);
+		snprintf(path, sizeof(path) - 1, "%s/%s", d, de->d_name);
 
 		memset(&files[i], 0, sizeof(*files));
 		strncpy(files[i].name, de->d_name, 0x19);

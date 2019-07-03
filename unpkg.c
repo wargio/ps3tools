@@ -78,35 +78,40 @@ static void unpack_pkg(void)
 
 static void decrypt_pkg(void)
 {
-	u16 flags;
+	//u16 flags;
 	u16 type;
-	u32 hdr_len;
+	//u32 hdr_len;
 	struct keylist *k;
 
-	flags    = be16(pkg + 0x08);
+	//flags    = be16(pkg + 0x08);
 	type     = be16(pkg + 0x0a);
-	hdr_len  = be64(pkg + 0x10);
+	//hdr_len  = be64(pkg + 0x10);
 	dec_size = be64(pkg + 0x18);
 
-	if (type != 3)
+	if (type != 3) {
 		fail("no .pkg file");
+	}
 
 	k = keys_get(KEY_PKG);
 
-	if (k == NULL)
+	if (k == NULL) {
 		fail("no key found");
+	}
 
-	if (sce_decrypt_header(pkg, k) < 0)
+	if (sce_decrypt_header(pkg, k) < 0) {
 		fail("header decryption failed");
+	}
 
-	if (sce_decrypt_data(pkg) < 0)
+	if (sce_decrypt_data(pkg) < 0) {
 		fail("data decryption failed");
+	}
 
 	meta_offset = be32(pkg + 0x0c);
 	n_sections  = be32(pkg + meta_offset + 0x60 + 0xc);
 
-	if (n_sections != 3)
+	if (n_sections != 3) {
 		fail("invalid section count: %d", n_sections);
+	}
 }
 
 int main(int argc, char *argv[])

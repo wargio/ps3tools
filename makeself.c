@@ -345,7 +345,7 @@ static void compress_elf(void)
 	u32 i;
 	u64 offset;
 	uLongf size_zlib;
-	int res;
+//	int res;
 	u64 size_compressed;
 
 	offset = header_size;
@@ -368,7 +368,8 @@ static void compress_elf(void)
 		if (!phdr_map[i].ptr)
 			fail("out of memory");
 
-		res = compress(phdr_map[i].ptr, &size_zlib,
+		//res = compress(phdr_map[i].ptr, &size_zlib,
+		compress(phdr_map[i].ptr, &size_zlib,
 		               elf + phdr[i].p_off, phdr[i].p_filesz);
 
 		if (size_zlib >= phdr[i].p_filesz) {

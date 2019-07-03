@@ -258,6 +258,7 @@ static void show_ctrl(void)
 					printf("\n");
 					break;
 				}
+				goto unknown_type;
 			case 2:
 				if (length == 0x40) {
 					printf("  file digest:\n    ");
@@ -266,13 +267,13 @@ static void show_ctrl(void)
 					print_hash(self + ctrl_offset + i + 0x24, 0x14);
 					printf("\n");
 					break;
-				}
-				if (length == 0x30) {
+				} else if (length == 0x30) {
 					printf("  file digest:\n    ");
 					print_hash(self + ctrl_offset + i + 0x10, 0x14);
 					printf("\n");
 					break;
 				}
+				goto unknown_type;
 			case 3:
 				if (length == 0x90) {
 
@@ -295,7 +296,9 @@ static void show_ctrl(void)
 					printf("\n");
 					break;
 				}
+				goto unknown_type;
 			default:
+unknown_type:
 				printf("  unknown:\n");
 				for(j = 0; j < length; j++) {
 					if ((j % 16) == 0)

@@ -18,14 +18,14 @@ static u64 dec_size;
 
 static void decrypt_spp(void)
 {
-	u16 flags;
+	//u16 flags;
 	u16 type;
-	u32 hdr_len;
+	//u32 hdr_len;
 	struct keylist *k;
 
-	flags    = be16(pkg + 0x08);
+	//flags    = be16(pkg + 0x08);
 	type     = be16(pkg + 0x0a);
-	hdr_len  = be64(pkg + 0x10);
+	//hdr_len  = be64(pkg + 0x10);
 	dec_size = be64(pkg + 0x18);
 
 	if (type != 4)
