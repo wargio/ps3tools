@@ -26,14 +26,13 @@ struct sc_hdr {
 
 void print_fw_struct_info(struct sc_hdr * H) {
 	printf("[CHECKSUM 1] %08x %08x %08x %08x\n"
-		"			 %08x %08x %08x %08x\n",
-		H - > field0[0], H - > field0[1], H - > field0[2], H - > field0[3],
-		H - > field0[4], H - > field0[5], H - > field0[6], H - > field0[7]);
-	printf("[NULL	??] %08x\n", H - > offset0);
-	printf("[Firm  SIZE] %u Bytes\n", H - > size0);
-	printf("[Bin SIZE]   %u Bytes\n", H - > size1);
-	printf("[CHECKSUM 2] %08x %08x %08x %08x\n",
-		H - > field1[0], H - > field1[1], H - > field1[2], H - > field1[3]);
+		   "			 %08x %08x %08x %08x\n",
+		H->field0[0], H->field0[1], H->field0[2], H->field0[3],
+		H->field0[4], H->field0[5], H->field0[6], H->field0[7]);
+	printf("[NULL	??] %08x\n", H->offset0);
+	printf("[Firm  SIZE] %u Bytes\n", H->size0);
+	printf("[Bin SIZE]   %u Bytes\n", H->size1);
+	printf("[CHECKSUM 2] %08x %08x %08x %08x\n", H->field1[0], H->field1[1], H->field1[2], H->field1[3]);
 }
 
 static void unpack_content(const char * name) {
